@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: us-central1-docker.pkg.dev/halogen-eon-470613-h3/dead-simpl-backend/dead-simpl-backend
+  tag: staging
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80

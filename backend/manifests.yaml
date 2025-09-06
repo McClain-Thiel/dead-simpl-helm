@@ -1,0 +1,35 @@
+---
+# Source: backend/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-staging-backend-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: backend-staging-backend
+---
+# Source: backend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-staging-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-staging-backend
+  template:
+    metadata:
+      labels:
+        app: backend-staging-backend
+    spec:
+      containers:
+        - name: backend
+          image: "us-central1-docker.pkg.dev/halogen-eon-470613-h3/dead-simpl-backend/dead-simpl-backend:staging"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
